@@ -4,7 +4,6 @@
 #include <iterator>
 #include <vector>
 #include <deque>
-#include <thread>
 
 //typedef std::vector <std::int64_t> data_t;
 typedef std::deque <std::int64_t> data_t;
@@ -71,8 +70,6 @@ public:
 
 		const size_t rec_size = 11;
 
-		size_t sss = 0;
-
 		std::string str;
 
 		while (!m_ifs.eof()) {
@@ -109,12 +106,6 @@ public:
 			} else {
 				// invalid
 			}
-
-			++sss;
-
-			if (sss > 120000000) {
-				break;
-			}
 		}
 
 		std::sort (out.begin (), out.end ());
@@ -135,7 +126,6 @@ void validate_func (const std::string& file_name, data_t& data) {
 int main (int argc, char* argv []) {
 	data_t data1, data2;
 
-	/**/
 	{
 		Validator obj ("list_of_expired_passports.csv");
 		obj.execute (data1);
@@ -149,18 +139,6 @@ int main (int argc, char* argv []) {
 	}
 
 	std::cout << "data_size = " << data2.size () << std::endl;
-	/**/
-
-	/**
-	std::thread thr1 (validate_func, "list_of_expired_passports.csv", data1);
-	thr1.join();
-
-	std::thread thr2 (validate_func, "list_of_expired_passports (1).csv", data2);
-	thr2.join();
-
-	std::cout << "data_size = " << data1.size () << std::endl;
-	std::cout << "data_size = " << data2.size () << std::endl;
-	/**/
 
 	std::cout << "compare.." << std::endl;
 
